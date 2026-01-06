@@ -102,11 +102,10 @@ const Hero = () => {
   };
 
   const circleData = [
-    { id: 0, color: '#4361ee', label: 'Code' },
-    { id: 1, color: '#4cc9f0', label: 'Design' },
-    { id: 2, color: '#7209b7', label: 'Create' }
-  ];
-
+  { id: 0, color: '#4cc9f0', label: 'Design' },
+  { id: 1, color: '#4361ee', label: 'Code' },
+  { id: 2, color: '#7209b7', label: 'Create' }
+];
   return (
     <section id="home" className="hero">
       <div className="hero-container">
