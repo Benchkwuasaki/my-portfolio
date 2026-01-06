@@ -9,7 +9,7 @@ const Hero = () => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [circlePositions, setCirclePositions] = useState([0, 1, 2]); // 0,1,2 represent positions
+  const [circlePositions, setCirclePositions] = useState([0, 1, 2]);
   const [activeCircle, setActiveCircle] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
 
@@ -35,35 +35,28 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [text, isDeleting, phraseIndex]);
 
-  // Circle switching animation
   useEffect(() => {
     const animationSequence = () => {
-      // Step 1: Circle 0 moves to position 1
       setTimeout(() => {
         setActiveCircle(0);
         setIsJumping(true);
         setCirclePositions([1, 0, 2]);
         
-        // Step 2: After circle 0 reaches position 1, circle 1 jumps to position 0
         setTimeout(() => {
           setActiveCircle(1);
           setIsJumping(true);
-          setCirclePositions([1, 0, 2]); // Keep same positions, circle 1 jumps to top
+          setCirclePositions([1, 0, 2]);
           
-          // Wait 2 seconds
           setTimeout(() => {
-            // Step 3: Circle 0 moves to position 2
             setActiveCircle(0);
             setIsJumping(false);
             setCirclePositions([2, 0, 1]);
             
-            // Step 4: Circle 2 jumps to position 1
             setTimeout(() => {
               setActiveCircle(2);
               setIsJumping(true);
               setCirclePositions([2, 1, 0]);
               
-              // Reset after a delay
               setTimeout(() => {
                 setActiveCircle(0);
                 setIsJumping(false);
@@ -75,11 +68,8 @@ const Hero = () => {
       }, 1000);
     };
 
-    // Start the animation sequence
     const startAnimation = setTimeout(animationSequence, 1000);
-    
-    // Loop the animation
-    const animationInterval = setInterval(animationSequence, 12000); // Full cycle: 12 seconds
+    const animationInterval = setInterval(animationSequence, 12000);
 
     return () => {
       clearTimeout(startAnimation);
@@ -87,7 +77,6 @@ const Hero = () => {
     };
   }, []);
 
-  // Calculate circle positions
   const getCircleStyle = (circleIndex) => {
     const positions = {
       0: { x: 0, y: 0 },
@@ -97,7 +86,6 @@ const Hero = () => {
     
     const targetPosition = positions[circlePositions[circleIndex]];
     
-    // Special jumping animation for circle 1 when active
     if (circleIndex === activeCircle && isJumping) {
       return {
         transform: `translate(${targetPosition.x}px, -50px)`,
@@ -106,7 +94,6 @@ const Hero = () => {
       };
     }
     
-    // Normal movement
     return {
       transform: `translate(${targetPosition.x}px, ${targetPosition.y}px)`,
       transition: 'transform 1s ease-in-out',
@@ -114,7 +101,6 @@ const Hero = () => {
     };
   };
 
-  // Circle colors and labels
   const circleData = [
     { id: 0, color: '#4361ee', label: 'Code' },
     { id: 1, color: '#4cc9f0', label: 'Design' },
@@ -150,7 +136,6 @@ const Hero = () => {
               </a>
             </div>
             
-            {/* Animated Switching Circles */}
             <div className="hero-animation">
               <div className="circle-container">
                 {circleData.map((circle) => (
@@ -171,7 +156,6 @@ const Hero = () => {
                 ))}
               </div>
               
-              {/* Position indicators */}
               <div className="position-indicators">
                 <div className="position-indicator pos-0">
                   <div className="indicator-dot"></div>
@@ -187,7 +171,6 @@ const Hero = () => {
                 </div>
               </div>
               
-              {/* Labels */}
               <div className="animation-labels">
                 {circleData.map((circle) => (
                   <div 
@@ -203,7 +186,6 @@ const Hero = () => {
                 ))}
               </div>
               
-              {/* Path visualization */}
               <div className="animation-path">
                 <div className="path-line path-line-1"></div>
                 <div className="path-line path-line-2"></div>
@@ -213,6 +195,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
+          
           <div className="hero-visual">
             <div 
               className="hero-avatar"
@@ -300,6 +283,7 @@ const heroStyles = `
   width: 100%;
 }
 
+/* Desktop layout (default) */
 .hero-content {
   display: grid;
   grid-template-columns: 1fr;
@@ -648,49 +632,6 @@ const heroStyles = `
 .path-dot-1 { left: 73px; }
 .path-dot-2 { left: 122px; }
 
-/* Animation states */
-@keyframes moveToSecond {
-  from {
-    transform: translateX(0px);
-  }
-  to {
-    transform: translateX(73px);
-  }
-}
-
-@keyframes jumpToFirst {
-  0% {
-    transform: translateX(73px) translateY(0);
-  }
-  50% {
-    transform: translateX(36.5px) translateY(-50px);
-  }
-  100% {
-    transform: translateX(0px) translateY(0);
-  }
-}
-
-@keyframes moveToThird {
-  from {
-    transform: translateX(73px);
-  }
-  to {
-    transform: translateX(146px);
-  }
-}
-
-@keyframes jumpToSecond {
-  0% {
-    transform: translateX(146px) translateY(0);
-  }
-  50% {
-    transform: translateX(109.5px) translateY(-50px);
-  }
-  100% {
-    transform: translateX(73px) translateY(0);
-  }
-}
-
 .hero-visual {
   position: relative;
   display: flex;
@@ -892,6 +833,81 @@ const heroStyles = `
   background: #5a8b6eff !important;
   border-color: #2ecc71 !important;
   color: white !important;
+}
+
+/* MOBILE-ONLY CHANGES (768px and below) */
+@media (max-width: 768px) {
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  /* Reorder items: Image first, then text content */
+  .hero-visual {
+    order: 1;
+    margin-bottom: 40px;
+  }
+  
+  .hero-text {
+    order: 2;
+  }
+  
+  /* Center everything on mobile */
+  .hero-title,
+  .hero-subtitle,
+  .hero-description {
+    text-align: center;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+  }
+  
+  .hero-animation {
+    margin: 20px auto 0;
+  }
+  
+  /* Adjust avatar size for mobile */
+  .hero-avatar {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .avatar-content {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .avatar-back-circle {
+    width: 300px;
+    height: 300px;
+  }
+  
+  /* Adjust decorations for mobile */
+  .decoration-1 {
+    width: 350px;
+    height: 350px;
+    top: -35px;
+    left: -35px;
+  }
+  
+  .decoration-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -20px;
+    right: -20px;
+  }
+}
+
+/* Desktop and tablet remain exactly the same as before */
+@media (min-width: 769px) {
+  /* Desktop layout */
+  @media (min-width: 992px) {
+    .hero-content {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 }
 `;
 
