@@ -1,6 +1,9 @@
 import { Mail, MapPin, Phone, Send, Clock, Globe, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// If images are not loading, let's use alternative approaches
+// You can either use local images or use CDN URLs
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -12,6 +15,8 @@ const Contact = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+
+  // Fire animation state
   const [activeFireIcon, setActiveFireIcon] = useState(0);
   const [firePosition, setFirePosition] = useState({ x: 0, y: 0 });
 
@@ -36,6 +41,7 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus({ type: '', message: '' });
 
+    // Simulate sending email
     setTimeout(() => {
       console.log('Form Data:', formData);
       setSubmitStatus({
@@ -187,6 +193,7 @@ const Contact = () => {
                     aria-label="Facebook"
                   >
                     <div className="social-icon-wrapper facebook-icon">
+                      {/* Using SVG or text as fallback if image doesn't load */}
                       <svg className="social-icon-image facebook-svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                       </svg>
@@ -201,6 +208,7 @@ const Contact = () => {
                     aria-label="TikTok"
                   >
                     <div className="social-icon-wrapper tiktok-icon">
+                      {/* TikTok SVG icon */}
                       <svg className="social-icon-image tiktok-svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3.002.598.066.88.19v-3.26a8.11 8.11 0 0 0-1-.05A6.07 6.07 0 0 0 5 20.1a6.07 6.07 0 0 0 10.14-4.61v-7a8.29 8.29 0 0 0 4.7 1.44v-3.2a4.85 4.85 0 0 1-.25-.04z"/>
                       </svg>
@@ -215,6 +223,7 @@ const Contact = () => {
                     aria-label="Instagram"
                   >
                     <div className="social-icon-wrapper instagram-icon">
+                      {/* Instagram SVG icon */}
                       <svg className="social-icon-image instagram-svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                       </svg>
@@ -235,6 +244,7 @@ const Contact = () => {
               </p>
               
               <form onSubmit={handleSubmit} className="contact-form">
+                {/* Status Messages */}
                 {submitStatus.message && (
                   <div className={`form-status ${submitStatus.type}`}>
                     {submitStatus.message}
@@ -358,29 +368,25 @@ const Contact = () => {
   );
 };
 
-// CSS Styles - FIXED VERSION
+// CSS Styles
 const contactStyles = `
-/* Reset for mobile */
-.contact-section * {
-  box-sizing: border-box;
-}
-
 .contact-section {
-  padding: 80px 16px;
+  padding: 100px 20px;
   min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
   
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.dark-mode .contact-section {
+  
+}
+
 .contact-container {
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 16px;
 }
 
 .contact-header {
@@ -389,19 +395,16 @@ const contactStyles = `
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
 }
 
 .contact-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
   background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 16px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
 }
 
 .dark-mode .contact-title {
@@ -411,12 +414,11 @@ const contactStyles = `
 }
 
 .contact-subtitle {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   color: #64748b;
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 8px;
 }
 
 .dark-mode .contact-subtitle {
@@ -426,15 +428,14 @@ const contactStyles = `
 .contact-layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 60px;
   animation: fadeIn 0.6s ease-out;
-  width: 100%;
 }
 
 @media (min-width: 1024px) {
   .contact-layout {
     grid-template-columns: 1.2fr 1fr;
-    gap: 60px;
+    gap: 80px;
   }
 }
 
@@ -442,16 +443,14 @@ const contactStyles = `
 .contact-info-column {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  width: 100%;
+  gap: 60px;
 }
 
 .info-section {
   background: white;
   border-radius: 20px;
-  padding: 32px 24px;
+  padding: 40px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-  width: 100%;
 }
 
 .dark-mode .info-section {
@@ -460,11 +459,10 @@ const contactStyles = `
 }
 
 .info-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 12px;
-  word-wrap: break-word;
 }
 
 .dark-mode .info-title {
@@ -475,7 +473,6 @@ const contactStyles = `
   color: #64748b;
   margin-bottom: 32px;
   line-height: 1.6;
-  word-wrap: break-word;
 }
 
 .dark-mode .info-description {
@@ -485,25 +482,15 @@ const contactStyles = `
 .contact-details-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  width: 100%;
-}
-
-@media (max-width: 640px) {
-  .contact-details-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+  gap: 24px;
 }
 
 .contact-detail-card {
   background: #f8fafc;
   border-radius: 12px;
-  padding: 20px;
+  padding: 24px;
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
-  width: 100%;
-  min-width: 0; /* Prevent flex items from overflowing */
 }
 
 .dark-mode .contact-detail-card {
@@ -526,7 +513,6 @@ const contactStyles = `
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
-  flex-wrap: wrap;
 }
 
 .detail-icon-wrapper {
@@ -538,14 +524,12 @@ const contactStyles = `
   align-items: center;
   justify-content: center;
   color: white;
-  flex-shrink: 0;
 }
 
 .detail-title {
   font-size: 1.125rem;
   font-weight: 600;
   color: #1e293b;
-  word-wrap: break-word;
 }
 
 .dark-mode .detail-title {
@@ -554,15 +538,13 @@ const contactStyles = `
 
 .detail-card-content {
   margin-bottom: 20px;
-  width: 100%;
 }
 
 .detail-main-info {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #22c55e;
   margin-bottom: 8px;
-  word-wrap: break-word;
 }
 
 .detail-description {
@@ -570,7 +552,6 @@ const contactStyles = `
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 4px;
-  word-wrap: break-word;
 }
 
 .dark-mode .detail-description {
@@ -580,7 +561,6 @@ const contactStyles = `
 .detail-sub-info {
   color: #94a3b8;
   font-size: 0.9rem;
-  word-wrap: break-word;
 }
 
 .detail-action-link {
@@ -593,8 +573,6 @@ const contactStyles = `
   font-weight: 500;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  max-width: 100%;
-  word-wrap: break-word;
 }
 
 .detail-action-link:hover {
@@ -606,9 +584,8 @@ const contactStyles = `
 .social-section {
   background: white;
   border-radius: 20px;
-  padding: 32px 24px;
+  padding: 40px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-  width: 100%;
 }
 
 .dark-mode .social-section {
@@ -617,11 +594,10 @@ const contactStyles = `
 }
 
 .social-title {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 8px;
-  word-wrap: break-word;
 }
 
 .dark-mode .social-title {
@@ -631,7 +607,6 @@ const contactStyles = `
 .social-description {
   color: #64748b;
   margin-bottom: 32px;
-  word-wrap: break-word;
 }
 
 .dark-mode .social-description {
@@ -643,7 +618,6 @@ const contactStyles = `
   width: 100%;
   height: 60px;
   margin-bottom: 24px;
-  overflow: hidden; /* Prevent fire animation from overflowing */
 }
 
 .social-icons-container {
@@ -653,16 +627,6 @@ const contactStyles = `
   top: 0;
   left: 0;
   z-index: 2;
-  width: 100%;
-  justify-content: center; /* Center icons on mobile */
-}
-
-@media (max-width: 640px) {
-  .social-icons-container {
-    gap: 16px;
-    justify-content: space-around; /* Better spacing on mobile */
-    padding: 0 8px;
-  }
 }
 
 .social-link {
@@ -679,7 +643,6 @@ const contactStyles = `
   position: relative;
   overflow: hidden;
   border: 2px solid #e2e8f0;
-  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .dark-mode .social-link {
@@ -692,7 +655,7 @@ const contactStyles = `
   border-color: #4ade80;
 }
 
-/* Social Icon Wrapper */
+/* Social Icon Wrapper - Perfectly centers icons */
 .social-icon-wrapper {
   width: 32px;
   height: 32px;
@@ -708,7 +671,7 @@ const contactStyles = `
   height: 100%;
 }
 
-/* Facebook Icon */
+/* Facebook Icon - Blue background with white F */
 .facebook-icon {
   background-color: #1877F2;
   border-radius: 8px;
@@ -719,7 +682,7 @@ const contactStyles = `
   color: white;
 }
 
-/* TikTok Icon */
+/* TikTok Icon - Black background with white music note */
 .tiktok-icon {
   background-color: #000000;
   border-radius: 6px;
@@ -730,7 +693,7 @@ const contactStyles = `
   color: white;
 }
 
-/* Instagram Icon */
+/* Instagram Icon - Gradient background */
 .instagram-icon {
   background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
   border-radius: 10px;
@@ -746,20 +709,13 @@ const contactStyles = `
   color: #64748b;
   font-weight: 500;
   margin-top: 2px;
-  display: none; /* Hide labels on all devices */
-}
-
-@media (min-width: 768px) {
-  .social-link-label {
-    display: block; /* Show labels on tablet and above */
-  }
 }
 
 .dark-mode .social-link-label {
   color: #cbd5e1;
 }
 
-/* Fire animation */
+/* Fire animation - Original orange colors */
 .fire-active {
   border-color: #f97316;
   box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
@@ -809,23 +765,16 @@ const contactStyles = `
 .contact-form-column {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 .form-section {
   background: white;
   border-radius: 20px;
-  padding: 32px 24px;
+  padding: 40px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
   height: fit-content;
-  width: 100%;
-}
-
-@media (min-width: 1024px) {
-  .form-section {
-    position: sticky;
-    top: 40px;
-  }
+  position: sticky;
+  top: 40px;
 }
 
 .dark-mode .form-section {
@@ -834,11 +783,10 @@ const contactStyles = `
 }
 
 .form-title {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 12px;
-  word-wrap: break-word;
 }
 
 .dark-mode .form-title {
@@ -849,7 +797,6 @@ const contactStyles = `
   color: #64748b;
   margin-bottom: 32px;
   line-height: 1.6;
-  word-wrap: break-word;
 }
 
 .dark-mode .form-description {
@@ -860,14 +807,11 @@ const contactStyles = `
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
 }
 
 .form-row {
   display: flex;
   gap: 16px;
-  width: 100%;
-  flex-wrap: wrap; /* Allow wrapping on mobile */
 }
 
 .form-field {
@@ -876,18 +820,6 @@ const contactStyles = `
 
 .form-field.half {
   flex: 1;
-  min-width: 0; /* Prevent flex items from overflowing */
-}
-
-@media (max-width: 640px) {
-  .form-row {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .form-field.half {
-    flex: 1 0 100%; /* Full width on mobile */
-  }
 }
 
 .form-label {
@@ -898,7 +830,6 @@ const contactStyles = `
   font-weight: 600;
   color: #1e293b;
   font-size: 0.95rem;
-  word-wrap: break-word;
 }
 
 .dark-mode .form-label {
@@ -917,8 +848,6 @@ const contactStyles = `
   font-size: 1rem;
   color: #1e293b;
   transition: all 0.3s ease;
-  max-width: 100%;
-  box-sizing: border-box;
 }
 
 .dark-mode .form-input,
@@ -967,8 +896,6 @@ const contactStyles = `
   animation: slideDown 0.3s ease-out;
   border: 2px solid;
   line-height: 1.6;
-  word-wrap: break-word;
-  width: 100%;
 }
 
 .form-status.success {
@@ -996,7 +923,6 @@ const contactStyles = `
 /* Submit Button */
 .form-footer {
   margin-top: 8px;
-  width: 100%;
 }
 
 .submit-button {
@@ -1046,7 +972,6 @@ const contactStyles = `
   text-align: center;
   color: #64748b;
   font-size: 0.9rem;
-  word-wrap: break-word;
 }
 
 .dark-mode .form-note {
@@ -1117,34 +1042,51 @@ const contactStyles = `
   }
 }
 
-/* Additional Mobile Fixes */
-@media (max-width: 640px) {
+/* Responsive Design */
+@media (max-width: 1023px) {
   .contact-section {
-    padding: 60px 12px;
-  }
-  
-  .contact-container {
-    padding: 0 12px;
+    padding: 60px 15px;
   }
   
   .contact-title {
-    font-size: 2rem;
-    padding: 0 8px;
+    font-size: 2.5rem;
   }
   
   .contact-subtitle {
-    font-size: 1rem;
-    padding: 0 8px;
+    font-size: 1.125rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-section {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-title {
+    font-size: 2rem;
   }
   
   .info-section,
   .social-section,
   .form-section {
-    padding: 24px 20px;
+    padding: 30px 20px;
   }
   
   .contact-detail-card {
-    padding: 16px;
+    padding: 20px;
+  }
+  
+  .social-icons-container {
+    gap: 12px;
   }
   
   .social-link {
@@ -1157,29 +1099,13 @@ const contactStyles = `
     height: 26px;
   }
   
+  .social-link-label {
+    display: none;
+  }
+  
   .jumping-fire {
     width: 50px;
     height: 50px;
-  }
-  
-  .contact-social {
-    height: 50px;
-  }
-  
-  .social-icons-container {
-    gap: 12px;
-  }
-  
-  .form-input,
-  .form-select,
-  .form-textarea {
-    padding: 12px 14px;
-    font-size: 0.95rem;
-  }
-  
-  .submit-button {
-    padding: 16px 24px;
-    font-size: 1rem;
   }
 }
 `;
