@@ -1,7 +1,26 @@
-import { Heart } from './Icons';
+import { Heart, Download as DownloadIcon } from './Icons';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // Function to handle portfolio download
+// Function to handle portfolio download
+const handlePortfolioDownload = () => {
+  // Create a download link for the portfolio PDF
+  const link = document.createElement('a');
+  
+  // Updated path to your PDF file
+  link.href = '/Ben Joy D. Lipang - Portfolio.pdf';
+  link.download = 'Ben_Joy_Lipang_Portfolio.pdf';
+  
+  // Trigger the download
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  // Show a success message
+  alert('Portfolio download has started! Thank you for your interest.');
+};
 
   return (
     <footer className="footer">
@@ -51,6 +70,18 @@ const Footer = () => {
           </div>
         </div>
         
+        {/* Download Portfolio Section - Simple icon only */}
+        <div className="footer-download-section">
+          <div 
+            className="download-icon-container"
+            onClick={handlePortfolioDownload}
+            title="Download Portfolio PDF"
+          >
+            <DownloadIcon size={32} className="download-icon" />
+          </div>
+          <span className="download-text-label">Download Portfolio</span>
+        </div>
+        
         <div className="footer-bottom">
           <p className="footer-copyright">
             © {currentYear} Portfolio. Made with <Heart size={16} className="footer-heart" /> by Bench Lipang.
@@ -87,7 +118,7 @@ const footerStyles = `
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 @media (min-width: 768px) {
@@ -140,7 +171,7 @@ const footerStyles = `
 @media (max-width: 767px) {
   .footer-bench-container {
     transform: none;
-    margin-top: 30px; /* Add some spacing on mobile */
+    margin-top: 30px;
   }
 }
 
@@ -156,16 +187,15 @@ const footerStyles = `
   line-height: 1;
 }
 
-/* Mobile adjustment for the large font */
 @media (max-width: 767px) {
   .footer-bench-text {
-    font-size: 40px; /* Slightly smaller on mobile */
+    font-size: 40px;
   }
 }
 
 @media (max-width: 480px) {
   .footer-bench-text {
-    font-size: 32px; /* Even smaller on very small screens */
+    font-size: 32px;
     padding-left: 12px;
   }
 }
@@ -182,7 +212,6 @@ const footerStyles = `
   border-radius: 3px;
 }
 
-/* Mobile adjustment for accent bar */
 @media (max-width: 767px) {
   .footer-bench-text::before {
     height: 30px;
@@ -210,7 +239,6 @@ const footerStyles = `
   height: 48px;
 }
 
-/* Mobile adjustment for logo */
 @media (max-width: 767px) {
   .footer-bench-logo {
     width: 44px;
@@ -267,7 +295,6 @@ const footerStyles = `
   transform: translateX(5px);
 }
 
-/* Center Quick Links and Connect on mobile */
 @media (max-width: 767px) {
   .footer-links {
     text-align: center;
@@ -288,12 +315,79 @@ const footerStyles = `
   }
   
   .footer-link:hover {
-    transform: translateY(-2px); /* Change from X to Y translation on mobile */
+    transform: translateY(-2px);
   }
 }
 
-.footer-bottom {
+/* Download Portfolio Section - Simple icon only */
+.footer-download-section {
+  text-align: center;
+  padding: 30px 0;
+  margin: 30px 0;
   border-top: 1px solid var(--gray-800);
+  border-bottom: 1px solid var(--gray-800);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.download-icon-container {
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.download-icon-container:hover {
+  color: var(--accent-color);
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.download-icon-container:active {
+  transform: translateY(-1px);
+}
+
+.download-icon {
+  transition: transform 0.3s ease;
+}
+
+.download-icon-container:hover .download-icon {
+  transform: translateY(-2px);
+  animation: downloadBounce 1s ease infinite;
+}
+
+@keyframes downloadBounce {
+  0%, 100% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+.download-text-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-400);
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.download-icon-container:hover + .download-text-label {
+  color: var(--accent-color);
+}
+
+/* Footer Bottom */
+.footer-bottom {
   padding-top: 40px;
   text-align: center;
 }
