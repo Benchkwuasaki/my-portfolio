@@ -1,6 +1,9 @@
 import { Mail, MapPin, Phone, Send, Clock, Globe, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// If images are not loading, let's use alternative approaches
+// You can either use local images or use CDN URLs
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -365,24 +368,15 @@ const Contact = () => {
   );
 };
 
-// CSS Styles - UPDATED TO FIX HORIZONTAL SCROLL ON MOBILE
+// CSS Styles
 const contactStyles = `
-/* Prevent horizontal scroll globally for this section */
-.contact-section,
-.contact-section * {
-  box-sizing: border-box;
-  max-width: 100%;
-}
-
 .contact-section {
   padding: 100px 20px;
   min-height: 100vh;
+  
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Critical: Prevent horizontal overflow */
-  width: 100%;
-  overflow-x: hidden;
 }
 
 .dark-mode .contact-section {
@@ -393,8 +387,6 @@ const contactStyles = `
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  /* Ensure container doesn't cause overflow */
-  padding: 0;
 }
 
 .contact-header {
@@ -403,7 +395,6 @@ const contactStyles = `
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 10px;
 }
 
 .contact-title {
@@ -439,8 +430,6 @@ const contactStyles = `
   grid-template-columns: 1fr;
   gap: 60px;
   animation: fadeIn 0.6s ease-out;
-  /* Prevent grid from causing overflow */
-  width: 100%;
 }
 
 @media (min-width: 1024px) {
@@ -462,9 +451,6 @@ const contactStyles = `
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-  /* Ensure section doesn't overflow */
-  width: 100%;
-  max-width: 100%;
 }
 
 .dark-mode .info-section {
@@ -497,8 +483,6 @@ const contactStyles = `
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 24px;
-  /* Ensure grid items don't overflow */
-  width: 100%;
 }
 
 .contact-detail-card {
@@ -507,8 +491,6 @@ const contactStyles = `
   padding: 24px;
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
-  /* Ensure card fits within grid */
-  min-width: 0; /* Critical for flex/grid items */
 }
 
 .dark-mode .contact-detail-card {
@@ -604,9 +586,6 @@ const contactStyles = `
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-  /* Ensure section doesn't overflow */
-  width: 100%;
-  max-width: 100%;
 }
 
 .dark-mode .social-section {
@@ -639,8 +618,6 @@ const contactStyles = `
   width: 100%;
   height: 60px;
   margin-bottom: 24px;
-  /* Prevent social container from overflowing */
-  overflow: hidden;
 }
 
 .social-icons-container {
@@ -650,9 +627,6 @@ const contactStyles = `
   top: 0;
   left: 0;
   z-index: 2;
-  /* Ensure icons don't cause horizontal scroll */
-  max-width: 100%;
-  flex-wrap: wrap;
 }
 
 .social-link {
@@ -669,8 +643,6 @@ const contactStyles = `
   position: relative;
   overflow: hidden;
   border: 2px solid #e2e8f0;
-  /* Ensure link doesn't grow beyond bounds */
-  flex-shrink: 0;
 }
 
 .dark-mode .social-link {
@@ -793,9 +765,6 @@ const contactStyles = `
 .contact-form-column {
   display: flex;
   flex-direction: column;
-  /* Ensure column doesn't overflow */
-  width: 100%;
-  max-width: 100%;
 }
 
 .form-section {
@@ -806,10 +775,6 @@ const contactStyles = `
   height: fit-content;
   position: sticky;
   top: 40px;
-  /* Ensure form section doesn't overflow */
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
 }
 
 .dark-mode .form-section {
@@ -842,41 +807,19 @@ const contactStyles = `
   display: flex;
   flex-direction: column;
   gap: 24px;
-  /* Ensure form doesn't overflow */
-  width: 100%;
-  max-width: 100%;
 }
 
 .form-row {
   display: flex;
   gap: 16px;
-  /* Ensure form row wraps on mobile */
-  width: 100%;
-  max-width: 100%;
-}
-
-@media (max-width: 768px) {
-  .form-row {
-    flex-direction: column;
-    gap: 20px;
-  }
 }
 
 .form-field {
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
 }
 
 .form-field.half {
   flex: 1;
-}
-
-@media (max-width: 768px) {
-  .form-field.half {
-    flex: 1 1 100%;
-    width: 100%;
-  }
 }
 
 .form-label {
@@ -887,9 +830,6 @@ const contactStyles = `
   font-weight: 600;
   color: #1e293b;
   font-size: 0.95rem;
-  /* Ensure label text doesn't overflow */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
 }
 
 .dark-mode .form-label {
@@ -900,7 +840,6 @@ const contactStyles = `
 .form-select,
 .form-textarea {
   width: 100%;
-  max-width: 100%;
   padding: 14px 16px;
   background: #f8fafc;
   border: 2px solid #e2e8f0;
@@ -909,7 +848,6 @@ const contactStyles = `
   font-size: 1rem;
   color: #1e293b;
   transition: all 0.3s ease;
-  box-sizing: border-box; /* Critical for width calculation */
 }
 
 .dark-mode .form-input,
@@ -940,7 +878,6 @@ const contactStyles = `
   resize: vertical;
   min-height: 150px;
   line-height: 1.6;
-  max-width: 100%;
 }
 
 .character-count {
@@ -959,9 +896,6 @@ const contactStyles = `
   animation: slideDown 0.3s ease-out;
   border: 2px solid;
   line-height: 1.6;
-  /* Ensure status message doesn't overflow */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
 }
 
 .form-status.success {
@@ -1008,7 +942,6 @@ const contactStyles = `
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  box-sizing: border-box;
 }
 
 .submit-button:hover:not(:disabled) {
@@ -1039,9 +972,6 @@ const contactStyles = `
   text-align: center;
   color: #64748b;
   font-size: 0.9rem;
-  /* Ensure note text doesn't overflow */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
 }
 
 .dark-mode .form-note {
@@ -1112,14 +1042,10 @@ const contactStyles = `
   }
 }
 
-/* =============================================== */
-/* CRITICAL MOBILE FIXES - PREVENT HORIZONTAL SCROLL */
-/* =============================================== */
-
+/* Responsive Design */
 @media (max-width: 1023px) {
   .contact-section {
     padding: 60px 15px;
-    overflow-x: hidden;
   }
   
   .contact-title {
@@ -1130,61 +1056,29 @@ const contactStyles = `
     font-size: 1.125rem;
   }
   
-  .contact-layout {
-    gap: 40px;
-  }
-  
-  .info-section,
-  .social-section,
-  .form-section {
-    padding: 30px 25px;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
   }
   
   .contact-details-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
   
-  .social-icons-container {
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    gap: 15px;
-  }
-  
-  .jumping-fire {
-    display: none; /* Hide animation on mobile if it causes issues */
+  .form-section {
+    position: static;
   }
 }
 
-@media (max-width: 768px) {
-  .contact-section {
-    padding: 50px 12px;
-    overflow-x: hidden;
-  }
-  
-  .contact-container {
-    padding: 0 10px;
-  }
-  
+@media (max-width: 640px) {
   .contact-title {
     font-size: 2rem;
-  }
-  
-  .contact-subtitle {
-    font-size: 1rem;
-    padding: 0 10px;
   }
   
   .info-section,
   .social-section,
   .form-section {
-    padding: 25px 20px;
-    margin: 0;
-    border-radius: 16px;
+    padding: 30px 20px;
   }
   
   .contact-detail-card {
@@ -1193,10 +1087,6 @@ const contactStyles = `
   
   .social-icons-container {
     gap: 12px;
-    justify-content: center;
-    position: relative;
-    left: 0;
-    width: 100%;
   }
   
   .social-link {
@@ -1216,88 +1106,6 @@ const contactStyles = `
   .jumping-fire {
     width: 50px;
     height: 50px;
-  }
-  
-  /* Ensure all form elements are contained */
-  .form-row {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .form-field.half {
-    width: 100%;
-    flex: 1 1 100%;
-  }
-  
-  .form-input,
-  .form-textarea {
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .submit-button {
-    padding: 16px 24px;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-section {
-    padding: 40px 10px;
-  }
-  
-  .contact-title {
-    font-size: 1.8rem;
-  }
-  
-  .info-section,
-  .social-section,
-  .form-section {
-    padding: 20px 16px;
-  }
-  
-  .contact-details-grid {
-    gap: 16px;
-  }
-  
-  .contact-detail-card {
-    padding: 16px;
-  }
-  
-  .detail-main-info {
-    font-size: 1.1rem;
-  }
-  
-  .detail-description {
-    font-size: 0.85rem;
-  }
-  
-  .social-icons-container {
-    gap: 10px;
-  }
-  
-  .social-link {
-    width: 45px;
-    height: 45px;
-  }
-  
-  /* Force single column layout for smallest screens */
-  .contact-layout {
-    gap: 30px;
-  }
-}
-
-/* Additional safety measures */
-.contact-section img,
-.contact-section svg {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Ensure no element can cause horizontal scroll */
-@media (max-width: 768px) {
-  .contact-section * {
-    max-width: 100vw !important;
   }
 }
 `;
