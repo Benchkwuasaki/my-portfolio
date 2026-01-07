@@ -1,6 +1,9 @@
 import { Mail, MapPin, Phone, Send, Clock, Globe, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// If images are not loading, let's use alternative approaches
+// You can either use local images or use CDN URLs
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -15,26 +18,23 @@ const Contact = () => {
 
   // Fire animation state
   const [activeFireIcon, setActiveFireIcon] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [firePosition, setFirePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Check if mobile on mount and resize
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
     const fireInterval = setInterval(() => {
+      const positions = [
+        { x: 0, y: 0 },
+        { x: 73, y: 0 },
+        { x: 146, y: 0 }
+      ];
+      
+      setFirePosition(positions[activeFireIcon]);
       setActiveFireIcon((prev) => (prev + 1) % 3);
+      
     }, 3000);
 
-    return () => {
-      clearInterval(fireInterval);
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
+    return () => clearInterval(fireInterval);
+  }, [activeFireIcon]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -173,6 +173,17 @@ const Contact = () => {
               </p>
               
               <div className="contact-social">
+                <div 
+                  className="jumping-fire"
+                  style={{
+                    transform: `translate(${firePosition.x}px, ${firePosition.y}px)`,
+                    transition: 'transform 1s ease-in-out'
+                  }}
+                >
+                  <div className="fire-flame"></div>
+                  <div className="fire-sparkle"></div>
+                </div>
+                
                 <div className="social-icons-container">
                   <a
                     href="https://www.facebook.com/ka.benjoy.3"
@@ -182,17 +193,12 @@ const Contact = () => {
                     aria-label="Facebook"
                   >
                     <div className="social-icon-wrapper facebook-icon">
+                      {/* Using SVG or text as fallback if image doesn't load */}
                       <svg className="social-icon-image facebook-svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                       </svg>
                     </div>
                     <span className="social-link-label">Facebook</span>
-                    {!isMobile && activeFireIcon === 0 && (
-                      <div className="fire-animation">
-                        <div className="fire-flame"></div>
-                        <div className="fire-sparkle"></div>
-                      </div>
-                    )}
                   </a>
                   <a
                     href="https://tiktok.com/@yourprofile"
@@ -202,17 +208,12 @@ const Contact = () => {
                     aria-label="TikTok"
                   >
                     <div className="social-icon-wrapper tiktok-icon">
+                      {/* TikTok SVG icon */}
                       <svg className="social-icon-image tiktok-svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3.002.598.066.88.19v-3.26a8.11 8.11 0 0 0-1-.05A6.07 6.07 0 0 0 5 20.1a6.07 6.07 0 0 0 10.14-4.61v-7a8.29 8.29 0 0 0 4.7 1.44v-3.2a4.85 4.85 0 0 1-.25-.04z"/>
                       </svg>
                     </div>
                     <span className="social-link-label">TikTok</span>
-                    {!isMobile && activeFireIcon === 1 && (
-                      <div className="fire-animation">
-                        <div className="fire-flame"></div>
-                        <div className="fire-sparkle"></div>
-                      </div>
-                    )}
                   </a>
                   <a
                     href="https://instagram.com/yourprofile"
@@ -222,17 +223,12 @@ const Contact = () => {
                     aria-label="Instagram"
                   >
                     <div className="social-icon-wrapper instagram-icon">
+                      {/* Instagram SVG icon */}
                       <svg className="social-icon-image instagram-svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                       </svg>
                     </div>
                     <span className="social-link-label">Instagram</span>
-                    {!isMobile && activeFireIcon === 2 && (
-                      <div className="fire-animation">
-                        <div className="fire-flame"></div>
-                        <div className="fire-sparkle"></div>
-                      </div>
-                    )}
                   </a>
                 </div>
               </div>
@@ -248,6 +244,7 @@ const Contact = () => {
               </p>
               
               <form onSubmit={handleSubmit} className="contact-form">
+                {/* Status Messages */}
                 {submitStatus.message && (
                   <div className={`form-status ${submitStatus.type}`}>
                     {submitStatus.message}
@@ -367,692 +364,755 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
-      {/* Inline Styles */}
-      <style jsx="true">{`
-        .contact-section {
-          padding: 100px 20px;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow-x: hidden;
-          box-sizing: border-box;
-        }
-
-        .contact-container {
-          max-width: 1400px;
-          margin: 0 auto;
-          width: 100%;
-          overflow-x: hidden;
-        }
-
-        .contact-header {
-          text-align: center;
-          margin-bottom: 60px;
-          max-width: 800px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .contact-title {
-          font-size: 3rem;
-          font-weight: 800;
-          background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          margin-bottom: 16px;
-        }
-
-        .contact-subtitle {
-          font-size: 1.25rem;
-          color: #64748b;
-          line-height: 1.6;
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .contact-layout {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 60px;
-          animation: fadeIn 0.6s ease-out;
-          width: 100%;
-        }
-
-        @media (min-width: 1024px) {
-          .contact-layout {
-            grid-template-columns: 1.2fr 1fr;
-            gap: 80px;
-          }
-        }
-
-        /* Left Column Styles */
-        .contact-info-column {
-          display: flex;
-          flex-direction: column;
-          gap: 60px;
-          width: 100%;
-        }
-
-        .info-section {
-          background: white;
-          border-radius: 20px;
-          padding: 40px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-title {
-          font-size: 1.75rem;
-          font-weight: 700;
-          color: #1e293b;
-          margin-bottom: 12px;
-        }
-
-        .info-description {
-          color: #64748b;
-          margin-bottom: 32px;
-          line-height: 1.6;
-        }
-
-        .contact-details-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-          gap: 24px;
-          width: 100%;
-        }
-
-        .contact-detail-card {
-          background: #f8fafc;
-          border-radius: 12px;
-          padding: 24px;
-          border: 1px solid #e2e8f0;
-          transition: all 0.3s ease;
-          box-sizing: border-box;
-        }
-
-        .contact-detail-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-          border-color: #4ade80;
-        }
-
-        .detail-card-header {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
-        }
-
-        .detail-icon-wrapper {
-          width: 48px;
-          height: 48px;
-          background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-        }
-
-        .detail-title {
-          font-size: 1.125rem;
-          font-weight: 600;
-          color: #1e293b;
-        }
-
-        .detail-card-content {
-          margin-bottom: 20px;
-        }
-
-        .detail-main-info {
-          font-size: 1.25rem;
-          font-weight: 700;
-          color: #22c55e;
-          margin-bottom: 8px;
-        }
-
-        .detail-description {
-          color: #64748b;
-          font-size: 0.95rem;
-          line-height: 1.5;
-          margin-bottom: 4px;
-        }
-
-        .detail-sub-info {
-          color: #94a3b8;
-          font-size: 0.9rem;
-        }
-
-        .detail-action-link {
-          display: inline-block;
-          padding: 8px 20px;
-          background: #22c55e;
-          color: white;
-          text-decoration: none;
-          border-radius: 8px;
-          font-weight: 500;
-          font-size: 0.9rem;
-          transition: all 0.3s ease;
-        }
-
-        .detail-action-link:hover {
-          background: #16a34a;
-          transform: translateY(-2px);
-        }
-
-        /* Social Section Styles */
-        .social-section {
-          background: white;
-          border-radius: 20px;
-          padding: 40px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-        }
-
-        .social-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #1e293b;
-          margin-bottom: 8px;
-        }
-
-        .social-description {
-          color: #64748b;
-          margin-bottom: 32px;
-        }
-
-        .contact-social {
-          position: relative;
-          width: 100%;
-          height: 60px;
-          margin-bottom: 24px;
-          overflow: visible;
-        }
-
-        .social-icons-container {
-          display: flex;
-          gap: 20px;
-          justify-content: center;
-          width: 100%;
-          position: relative;
-        }
-
-        .social-link {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          background: #f8fafc;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: visible;
-          border: 2px solid #e2e8f0;
-        }
-
-        .social-link:hover {
-          transform: translateY(-5px) scale(1.05);
-          border-color: #4ade80;
-        }
-
-        .social-icon-wrapper {
-          width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-        }
-
-        .social-icon-image {
-          width: 100%;
-          height: 100%;
-        }
-
-        .facebook-icon {
-          background-color: #1877F2;
-          border-radius: 8px;
-          padding: 6px;
-        }
-
-        .facebook-svg {
-          color: white;
-        }
-
-        .tiktok-icon {
-          background-color: #000000;
-          border-radius: 6px;
-          padding: 6px;
-        }
-
-        .tiktok-svg {
-          color: white;
-        }
-
-        .instagram-icon {
-          background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
-          border-radius: 10px;
-          padding: 6px;
-        }
-
-        .instagram-svg {
-          color: white;
-        }
-
-        .social-link-label {
-          font-size: 0.7rem;
-          color: #64748b;
-          font-weight: 500;
-          margin-top: 2px;
-        }
-
-        .fire-active {
-          border-color: #f97316;
-          box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
-        }
-
-        .fire-animation {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-          pointer-events: none;
-        }
-
-        .fire-flame {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          background: radial-gradient(circle at 30% 30%, 
-            #ff6b00 0%,
-            #ff8c00 30%,
-            #ffd700 60%,
-            transparent 80%
-          );
-          animation: fireFlicker 0.5s infinite alternate;
-          filter: blur(8px);
-          opacity: 0.7;
-        }
-
-        .fire-sparkle {
-          position: absolute;
-          width: 25px;
-          height: 25px;
-          border-radius: 50%;
-          background: radial-gradient(circle, #fff 0%, transparent 70%);
-          top: -8px;
-          left: 50%;
-          transform: translateX(-50%);
-          animation: sparkleFloat 1s infinite alternate;
-          filter: blur(2px);
-          opacity: 0.9;
-        }
-
-        /* Right Column - Form Styles */
-        .contact-form-column {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .form-section {
-          background: white;
-          border-radius: 20px;
-          padding: 40px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-          height: fit-content;
-          position: sticky;
-          top: 40px;
-        }
-
-        .form-title {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #1e293b;
-          margin-bottom: 12px;
-        }
-
-        .form-description {
-          color: #64748b;
-          margin-bottom: 32px;
-          line-height: 1.6;
-        }
-
-        .contact-form {
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-        }
-
-        .form-row {
-          display: flex;
-          gap: 16px;
-        }
-
-        .form-field {
-          width: 100%;
-        }
-
-        .form-field.half {
-          flex: 1;
-          min-width: 0;
-        }
-
-        .form-label {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          margin-bottom: 8px;
-          font-weight: 600;
-          color: #1e293b;
-          font-size: 0.95rem;
-        }
-
-        .form-input,
-        .form-textarea {
-          width: 100%;
-          padding: 14px 16px;
-          background: #f8fafc;
-          border: 2px solid #e2e8f0;
-          border-radius: 10px;
-          font-family: inherit;
-          font-size: 1rem;
-          color: #1e293b;
-          transition: all 0.3s ease;
-          box-sizing: border-box;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-          outline: none;
-          border-color: #4ade80;
-          box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1);
-          background: white;
-        }
-
-        .form-textarea {
-          resize: vertical;
-          min-height: 150px;
-          line-height: 1.6;
-        }
-
-        .character-count {
-          text-align: right;
-          font-size: 0.85rem;
-          color: #94a3b8;
-          margin-top: 4px;
-        }
-
-        /* Status Messages */
-        .form-status {
-          padding: 16px;
-          border-radius: 12px;
-          margin-bottom: 20px;
-          font-weight: 500;
-          animation: slideDown 0.3s ease-out;
-          border: 2px solid;
-          line-height: 1.6;
-        }
-
-        .form-status.success {
-          background: rgba(34, 197, 94, 0.1);
-          color: #166534;
-          border-color: #86efac;
-        }
-
-        /* Submit Button */
-        .form-footer {
-          margin-top: 8px;
-        }
-
-        .submit-button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          width: 100%;
-          padding: 18px 32px;
-          background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
-          color: white;
-          border: none;
-          border-radius: 12px;
-          font-size: 1.125rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .submit-button:hover:not(:disabled) {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(74, 222, 128, 0.3);
-        }
-
-        .submit-button:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
-
-        .spinner {
-          width: 20px;
-          height: 20px;
-          border: 3px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
-          border-top-color: white;
-          animation: spin 1s linear infinite;
-        }
-
-        .form-note {
-          margin-top: 16px;
-          text-align: center;
-          color: #64748b;
-          font-size: 0.9rem;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fireFlicker {
-          0%, 100% {
-            transform: scale(1) rotate(0deg);
-            opacity: 0.7;
-          }
-          25% {
-            transform: scale(1.05) rotate(5deg);
-            opacity: 0.6;
-          }
-          50% {
-            transform: scale(0.95) rotate(-5deg);
-            opacity: 0.8;
-          }
-          75% {
-            transform: scale(1.1) rotate(3deg);
-            opacity: 0.5;
-          }
-        }
-
-        @keyframes sparkleFloat {
-          0% {
-            transform: translateX(-50%) translateY(0) scale(1);
-            opacity: 0.9;
-          }
-          100% {
-            transform: translateX(-50%) translateY(-15px) scale(1.3);
-            opacity: 0.4;
-          }
-        }
-
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1023px) {
-          .contact-section {
-            padding: 60px 15px;
-          }
-          
-          .contact-title {
-            font-size: 2.5rem;
-          }
-          
-          .contact-subtitle {
-            font-size: 1.125rem;
-          }
-          
-          .form-row {
-            flex-direction: column;
-            gap: 20px;
-          }
-          
-          .contact-details-grid {
-            grid-template-columns: 1fr;
-          }
-          
-          .form-section {
-            position: static;
-          }
-        }
-
-        /* Mobile-specific fixes */
-        @media (max-width: 768px) {
-          .contact-section {
-            padding: 40px 12px;
-            overflow-x: hidden;
-          }
-          
-          .contact-container {
-            overflow-x: hidden;
-            width: 100%;
-          }
-          
-          .contact-layout {
-            width: 100%;
-            overflow-x: hidden;
-          }
-          
-          .contact-title {
-            font-size: 2rem;
-            word-wrap: break-word;
-          }
-          
-          .info-section,
-          .social-section,
-          .form-section {
-            padding: 25px 18px;
-            border-radius: 16px;
-            width: 100%;
-            box-sizing: border-box;
-          }
-          
-          .contact-detail-card {
-            padding: 20px;
-            width: 100%;
-          }
-          
-          .social-icons-container {
-            gap: 15px;
-            justify-content: center;
-            width: 100%;
-          }
-          
-          .social-link {
-            width: 55px;
-            height: 55px;
-          }
-          
-          .social-icon-wrapper {
-            width: 28px;
-            height: 28px;
-          }
-          
-          .social-link-label {
-            display: none;
-          }
-          
-          .fire-animation {
-            display: none; /* Hide fire animation on mobile */
-          }
-          
-          .form-input,
-          .form-textarea {
-            max-width: 100%;
-            box-sizing: border-box;
-          }
-          
-          .form-field.half {
-            flex: 1 1 100%;
-          }
-        }
-
-        /* Extra small devices */
-        @media (max-width: 400px) {
-          .contact-section {
-            padding: 30px 8px;
-          }
-          
-          .info-section,
-          .social-section,
-          .form-section {
-            padding: 20px 15px;
-          }
-          
-          .social-icons-container {
-            gap: 10px;
-          }
-          
-          .social-link {
-            width: 50px;
-            height: 50px;
-          }
-          
-          .social-icon-wrapper {
-            width: 24px;
-            height: 24px;
-          }
-          
-          .info-title,
-          .form-title,
-          .social-title {
-            font-size: 1.4rem;
-          }
-          
-          .contact-title {
-            font-size: 1.8rem;
-          }
-        }
-      `}</style>
     </section>
   );
 };
+
+// CSS Styles
+const contactStyles = `
+.contact-section {
+  padding: 100px 20px;
+  min-height: 100vh;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-mode .contact-section {
+  
+}
+
+.contact-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.dark-mode .contact-title {
+  background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-subtitle {
+  font-size: 1.25rem;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dark-mode .contact-subtitle {
+  color: #cbd5e1;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@media (min-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+  }
+}
+
+/* Left Column Styles */
+.contact-info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.info-section {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .info-section {
+  background: #1e293b;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.info-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.dark-mode .info-title {
+  color: #f1f5f9;
+}
+
+.info-description {
+  color: #64748b;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.dark-mode .info-description {
+  color: #cbd5e1;
+}
+
+.contact-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.contact-detail-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .contact-detail-card {
+  background: #2d3748;
+  border-color: #4a5568;
+}
+
+.contact-detail-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: #4ade80;
+}
+
+.dark-mode .contact-detail-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.detail-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.detail-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.detail-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.dark-mode .detail-title {
+  color: #f1f5f9;
+}
+
+.detail-card-content {
+  margin-bottom: 20px;
+}
+
+.detail-main-info {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #22c55e;
+  margin-bottom: 8px;
+}
+
+.detail-description {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.dark-mode .detail-description {
+  color: #cbd5e1;
+}
+
+.detail-sub-info {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.detail-action-link {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #22c55e;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.detail-action-link:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+/* Social Section Styles */
+.social-section {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .social-section {
+  background: #1e293b;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.social-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.dark-mode .social-title {
+  color: #f1f5f9;
+}
+
+.social-description {
+  color: #64748b;
+  margin-bottom: 32px;
+}
+
+.dark-mode .social-description {
+  color: #cbd5e1;
+}
+
+.contact-social {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  margin-bottom: 24px;
+}
+
+.social-icons-container {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.social-link {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #e2e8f0;
+}
+
+.dark-mode .social-link {
+  background: #2d3748;
+  border-color: #4a5568;
+}
+
+.social-link:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-color: #4ade80;
+}
+
+/* Social Icon Wrapper - Perfectly centers icons */
+.social-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Social Icon SVGs */
+.social-icon-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* Facebook Icon - Blue background with white F */
+.facebook-icon {
+  background-color: #1877F2;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.facebook-svg {
+  color: white;
+}
+
+/* TikTok Icon - Black background with white music note */
+.tiktok-icon {
+  background-color: #000000;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.tiktok-svg {
+  color: white;
+}
+
+/* Instagram Icon - Gradient background */
+.instagram-icon {
+  background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+  border-radius: 10px;
+  padding: 6px;
+}
+
+.instagram-svg {
+  color: white;
+}
+
+.social-link-label {
+  font-size: 0.7rem;
+  color: #64748b;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.dark-mode .social-link-label {
+  color: #cbd5e1;
+}
+
+/* Fire animation - Original orange colors */
+.fire-active {
+  border-color: #f97316;
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+}
+
+.jumping-fire {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fire-flame {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, 
+    #ff6b00 0%,
+    #ff8c00 30%,
+    #ffd700 60%,
+    transparent 80%
+  );
+  animation: fireFlicker 0.5s infinite alternate;
+  filter: blur(8px);
+  opacity: 0.7;
+}
+
+.fire-sparkle {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, transparent 70%);
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: sparkleFloat 1s infinite alternate;
+  filter: blur(2px);
+  opacity: 0.9;
+}
+
+/* Right Column - Form Styles */
+.contact-form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+  position: sticky;
+  top: 40px;
+}
+
+.dark-mode .form-section {
+  background: #1e293b;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.dark-mode .form-title {
+  color: #f1f5f9;
+}
+
+.form-description {
+  color: #64748b;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.dark-mode .form-description {
+  color: #cbd5e1;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.form-field.half {
+  flex: 1;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+.dark-mode .form-label {
+  color: #f1f5f9;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #1e293b;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .form-input,
+.dark-mode .form-select,
+.dark-mode .form-textarea {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #f1f5f9;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1);
+  background: white;
+}
+
+.dark-mode .form-input:focus,
+.dark-mode .form-select:focus,
+.dark-mode .form-textarea:focus {
+  background: #374151;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 150px;
+  line-height: 1.6;
+}
+
+.character-count {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Status Messages */
+.form-status {
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+  border: 2px solid;
+  line-height: 1.6;
+}
+
+.form-status.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #166534;
+  border-color: #86efac;
+}
+
+.dark-mode .form-status.success {
+  background: rgba(34, 197, 94, 0.2);
+  color: #bbf7d0;
+}
+
+.form-status.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.dark-mode .form-status.error {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fecaca;
+}
+
+/* Submit Button */
+.form-footer {
+  margin-top: 8px;
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(74, 222, 128, 0.3);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+.form-note {
+  margin-top: 16px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.dark-mode .form-note {
+  color: #94a3b8;
+}
+
+.form-note a {
+  color: #4ade80;
+  text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fireFlicker {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  25% {
+    transform: scale(1.05) rotate(5deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(0.95) rotate(-5deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: scale(1.1) rotate(3deg);
+    opacity: 0.5;
+  }
+}
+
+@keyframes sparkleFloat {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-15px) scale(1.3);
+    opacity: 0.4;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1023px) {
+  .contact-section {
+    padding: 60px 15px;
+  }
+  
+  .contact-title {
+    font-size: 2.5rem;
+  }
+  
+  .contact-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-section {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-title {
+    font-size: 2rem;
+  }
+  
+  .info-section,
+  .social-section,
+  .form-section {
+    padding: 30px 20px;
+  }
+  
+  .contact-detail-card {
+    padding: 20px;
+  }
+  
+  .social-icons-container {
+    gap: 12px;
+  }
+  
+  .social-link {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .social-icon-wrapper {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .social-link-label {
+    display: none;
+  }
+  
+  .jumping-fire {
+    width: 50px;
+    height: 50px;
+  }
+}
+`;
+
+// Append styles to document
+const styleSheet = document.createElement("style");
+styleSheet.textContent = contactStyles;
+document.head.appendChild(styleSheet);
 
 export default Contact;
