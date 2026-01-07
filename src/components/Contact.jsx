@@ -50,19 +50,19 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: <Mail size={20} />,
+      icon: <Mail size={20} className="contact-icon" />,
       title: 'Email:',
       info: 'lipangbenjoy41gmail.com',
       action: 'mailto:lipangbenjoy41@gmail.com',
     },
     {
-      icon: <Phone size={20} />,
+      icon: <Phone size={20} className="contact-icon" />,
       title: 'Phone:',
       info: '09356790848',
       action: 'tel:09356790848',
     },
     {
-      icon: <MapPin size={20} />,
+      icon: <MapPin size={20} className="contact-icon" />,
       title: 'Address:',
       info: 'Rocky village,123 Main Street',
       subInfo: 'Yumbing, Mambajao, Camiguin',
@@ -294,7 +294,7 @@ const contactStyles = `
   left: 0;
   width: 50px;
   height: 3px;
-  background: var(--primary-color);
+  background: linear-gradient(135deg, #90EE90, #32CD32);
   transition: background-color 0.3s ease;
 }
 
@@ -320,15 +320,20 @@ const contactStyles = `
 }
 
 .contact-detail-icon {
-  color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s ease;
 }
 
-.dark-mode .contact-detail-icon {
-  color: var(--accent-color);
+.contact-icon {
+  color: #32CD32;
+  stroke: #32CD32;
+  fill: none;
+}
+
+.dark-mode .contact-icon {
+  color: #90EE90;
+  stroke: #90EE90;
 }
 
 .contact-detail-title {
@@ -603,13 +608,13 @@ const contactStyles = `
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+  border-color: #32CD32;
+  box-shadow: 0 0 0 3px rgba(50, 205, 50, 0.1);
 }
 
 .dark-mode .form-input:focus,
 .dark-mode .form-textarea:focus {
-  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
+  box-shadow: 0 0 0 3px rgba(50, 205, 50, 0.2);
 }
 
 .form-input::placeholder,
@@ -634,7 +639,7 @@ const contactStyles = `
   justify-content: center;
   gap: 10px;
   padding: 14px 28px;
-  background: var(--primary-color);
+  background: linear-gradient(135deg, #90EE90, #32CD32);
   color: white;
   border: none;
   border-radius: 8px;
@@ -646,17 +651,17 @@ const contactStyles = `
 }
 
 .submit-button:hover {
-  background: var(--primary-dark);
+  background: linear-gradient(135deg, #76c776, #28a428);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(var(--primary-color-rgb), 0.3);
+  box-shadow: 0 6px 20px rgba(50, 205, 50, 0.3);
 }
 
 .dark-mode .submit-button {
-  background: var(--accent-color);
+  background: linear-gradient(135deg, #90EE90, #32CD32);
 }
 
 .dark-mode .submit-button:hover {
-  background: var(--accent-dark);
+  background: linear-gradient(135deg, #76c776, #28a428);
 }
 
 .submit-button:active {
@@ -665,6 +670,8 @@ const contactStyles = `
 
 .send-icon {
   transition: transform 0.3s ease;
+  color: white;
+  stroke: white;
 }
 
 .submit-button:hover .send-icon {
