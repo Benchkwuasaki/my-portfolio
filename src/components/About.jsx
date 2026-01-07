@@ -147,11 +147,11 @@ const About = () => {
                 <h3 className="intro-title">Turning Vision into Reality</h3>
                 <div className="intro-text">
                   <p>
-                    I specialize in creating elegant, performant web applications that solve real-world problems. 
+                      I specialize in creating elegant, performant web applications that solve real-world problems. 
                     With expertise across the entire stack, I deliver solutions that are both beautiful and functional.
                   </p>
                   <p>
-                    My approach combines technical excellence with user-centric design, ensuring every 
+                      My approach combines technical excellence with user-centric design, ensuring every 
                     project meets both business objectives and user expectations.
                   </p>
                 </div>

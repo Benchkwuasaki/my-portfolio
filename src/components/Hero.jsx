@@ -113,7 +113,7 @@ const Hero = () => {
           <div className="hero-text">
             <h1 className="hero-title">
               Hi, I'm{' '}
-              <span className="my-name">Ben joy D. Lipang</span>
+              <span className="my-name">Ben Joy D. Lipang</span>
             </h1>
             <h2 className="hero-subtitle">
               I'm a{' '}
