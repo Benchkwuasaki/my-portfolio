@@ -5,6 +5,7 @@ import oinktrade from '../assets/Screenshot 2025-12-24 170700.png';
 import Yumbing_choir from '../assets/Screenshot 2025-12-26 094449.png';
 import artist from '../assets/Screenshot 2025-12-26 101535.png';
 import acces from '../assets/Screenshot 2026-01-03 190102.png';
+import ojt from "../assets/Screenshot 2026-01-11 161309.png";
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -74,6 +75,14 @@ const Projects = () => {
       github: null,
       live:null,
       category: 'Microsoft'
+    },{
+      id: 9,
+      title: "OjT Diary Management tracking System",
+      description: "A system that allows student to log their daily activities during their on-the-job training period,enabling efficient monitoring and evaluation by their supervisors. Online Hosted.",
+      image: ojt,
+      github: null,
+      live: 'https://bench-ojt-diary.vercel.app',
+      category: 'fullstack'
     }
   ];
 
