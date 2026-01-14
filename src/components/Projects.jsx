@@ -6,7 +6,7 @@ import Yumbing_choir from '../assets/Screenshot 2025-12-26 094449.png';
 import artist from '../assets/Screenshot 2025-12-26 101535.png';
 import acces from '../assets/Screenshot 2026-01-03 190102.png';
 import ojtDiary from '../assets/Screenshot 2026-01-11 161309.png';
-import porftfolio from '../assets/C:\Users\albinG\Desktop\porfolio\src\assets\Screenshot 2026-01-14 175750.png';
+import porftfolio from '../assets/Screenshot 2026-01-14 175750.png';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -37,7 +37,7 @@ const Projects = () => {
     {
       id: 3,
       title: 'OJT Diary',
-      description: 'A web application for tracking and documenting On-the-Job Training experiences, allowing trainees to log daily activities, reflections, and progress. Locally Hosted.',
+      description: 'A web application for tracking and documenting On-the-Job Training experiences, allowing trainees to log daily activities, reflections, and progress. Online Deploy.',
       tags: ['React', 'Node.js', 'MongoDB', 'Express', 'CSS'],
       image: ojtDiary,
       github: null,
@@ -58,7 +58,7 @@ const Projects = () => {
     {
       id: 5,
       title: 'Portfolio Website',
-      description: 'A responsive portfolio website built with React and modern CSS to showcase projects and skills. This very site you are viewing!',
+      description: 'A responsive portfolio website built with React and modern CSS to showcase projects and skills. This very site you are viewing! Online Deploy',
       tags: ['React', 'CSS', 'JavaScript', 'Responsive Design'],
       image: porftfolio,
       github: null,
