@@ -6,7 +6,7 @@ import Yumbing_choir from '../assets/Screenshot 2025-12-26 094449.png';
 import artist from '../assets/Screenshot 2025-12-26 101535.png';
 import acces from '../assets/Screenshot 2026-01-03 190102.png';
 import ojtDiary from '../assets/Screenshot 2026-01-11 161309.png';
-import porftfolio from '../assets/Screenshot 2026-01-14 174757.png';
+import porftfolio from '../assets/C:\Users\albinG\Desktop\porfolio\src\assets\Screenshot 2026-01-14 175750.png';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
