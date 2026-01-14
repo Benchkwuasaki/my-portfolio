@@ -5,6 +5,8 @@ import oinktrade from '../assets/Screenshot 2025-12-24 170700.png';
 import Yumbing_choir from '../assets/Screenshot 2025-12-26 094449.png';
 import artist from '../assets/Screenshot 2025-12-26 101535.png';
 import acces from '../assets/Screenshot 2026-01-03 190102.png';
+import ojtDiary from '../assets/Screenshot 2026-01-11 161309.png';
+import porftfolio from '../assets/Screenshot 2026-01-14 174757.png';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -32,7 +34,17 @@ const Projects = () => {
       featured: true,
       category: 'fullstack',
     },
-    
+    {
+      id: 3,
+      title: 'OJT Diary',
+      description: 'A web application for tracking and documenting On-the-Job Training experiences, allowing trainees to log daily activities, reflections, and progress. Locally Hosted.',
+      tags: ['React', 'Node.js', 'MongoDB', 'Express', 'CSS'],
+      image: ojtDiary,
+      github: null,
+      live: 'https://bench-ojt-diary.vercel.app/',
+      featured: true, // Added to featured as requested
+      category: 'fullstack',
+    },
     {
       id: 4,
       title: 'Real-time Dashboard',
@@ -43,7 +55,17 @@ const Projects = () => {
       live: 'https://demo.com',
       category: 'frontend',
     },
-    
+    {
+      id: 5,
+      title: 'Portfolio Website',
+      description: 'A responsive portfolio website built with React and modern CSS to showcase projects and skills. This very site you are viewing!',
+      tags: ['React', 'CSS', 'JavaScript', 'Responsive Design'],
+      image: porftfolio,
+      github: null,
+      live:' https://bench-lipang-portfolio.vercel.app/',
+      featured: false,
+      category: 'frontend', // Changed to frontend as requested
+    },
     {
       id: 6,
       title: 'Yumbing Choir Online Printing',
@@ -103,7 +125,7 @@ const Projects = () => {
                 A curated collection of my notable projects showcasing full-stack web development,
                 mobile applications, and innovative solutions built with modern technologies.
                 Some projects were developed for local use, while others are already hosted online.
-                Due to the Large number of projects I’ve created, only selected works are featured/Put here.
+                Due to the Large number of projects I've created, only selected works are featured/Put here.
             </p>
 
           </div>
