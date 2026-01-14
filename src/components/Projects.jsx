@@ -5,7 +5,7 @@ import oinktrade from '../assets/Screenshot 2025-12-24 170700.png';
 import Yumbing_choir from '../assets/Screenshot 2025-12-26 094449.png';
 import artist from '../assets/Screenshot 2025-12-26 101535.png';
 import acces from '../assets/Screenshot 2026-01-03 190102.png';
-import ojtDiary from '../assets/Screenshot 2026-01-11 161309.png';
+import ojtDiary from '../assets/Screenshot 2026-01-14 175750.png';
 import porftfolio from '../assets/Screenshot 2026-01-14 175750.png';
 
 const Projects = () => {
@@ -15,7 +15,7 @@ const Projects = () => {
     {
       id: 1,
       title: 'IECS-GRADUATE ALUMNI TRACER',
-      description: ' This is Our CapstoneThesis Project A web system that records and monitors IECS alumni data, including graduate profiles and employment information, for institutional tracking and analysis. Hosted Online.',
+      description: ' This is Our Capstone - Thesis Project A web system that records and monitors IECS alumni data, including graduate profiles and employment information, for institutional tracking and analysis. Hosted Online.',
       tags: ['React', 'PHP-LARAVEL', 'MYSQL', 'HTML', 'CSS'],
       image: iecs_alumni,
       github: null,
