@@ -15,7 +15,7 @@ const Projects = () => {
     {
       id: 1,
       title: 'IECS-GRADUATE ALUMNI TRACER',
-      description: ' This is Our Capstone/Thesis Project A web system that records and monitors IECS alumni data, including graduate profiles and employment information, for institutional tracking and analysis. Hosted Online.',
+      description: ' This is Our CapstoneThesis Project A web system that records and monitors IECS alumni data, including graduate profiles and employment information, for institutional tracking and analysis. Hosted Online.',
       tags: ['React', 'PHP-LARAVEL', 'MYSQL', 'HTML', 'CSS'],
       image: iecs_alumni,
       github: null,
