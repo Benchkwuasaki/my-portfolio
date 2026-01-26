@@ -41,7 +41,7 @@ const Projects = () => {
       tags: ['React', 'Node.js', 'MongoDB', 'Express', 'CSS'],
       image: ojtDiary,
       github: null,
-      live: 'https://bench-ojt-diary.vercel.app/',
+      live: null,
       featured: true, // Added to featured as requested
       category: 'fullstack',
     },
