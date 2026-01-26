@@ -38,7 +38,7 @@ const Projects = () => {
       id: 3,
       title: 'OJT Diary',
       description: 'A web application for tracking and documenting On-the-Job Training experiences, allowing trainees to log daily activities, reflections, and progress. Online Deploy.',
-      tags: ['React', 'Node.js', 'MongoDB', 'Express', 'CSS'],
+      tags: ['html','css','jaavascript','php','mysql'],
       image: ojtDiary,
       github: null,
       live: null,
